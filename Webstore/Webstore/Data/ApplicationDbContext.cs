@@ -12,7 +12,7 @@ namespace Webstore.Data
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            FileStream FS = new FileStream("../Webstore/Images/console.jpg", FileMode.Open, FileAccess.Read);
+            FileStream FS = new FileStream("../Webstore/wwwroot/Images/console.jpg", FileMode.Open, FileAccess.Read);
             byte[] img = new byte[FS.Length];
             FS.Read(img, 0, Convert.ToInt32(FS.Length));
 
