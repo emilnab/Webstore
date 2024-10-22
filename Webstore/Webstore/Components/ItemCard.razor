@@ -12,11 +12,32 @@
                         <h5 class="card-title">@ware.Name</h5>
                         <p class="card-text">@ware.Description</p>
                         <p class="card-text"><strong>Price:</strong> @ware.Price</p>
+                        <p class="card-text"><strong>Quantity:</strong> @ware.Quantity</p>
 
                         <NavLink class="nav-link" href="@($"details/{ware.Id}")">
                             <button style="width:100px">
-                                <img src="/images/shoppingcart.svg" height="20px" width="50px" />
-                            </button>
+                                <img src="/images/shoppingcart.svg" height="20" width="50" />
+                            </button style="width:100px">
+                            
+                            
+                            @if(ware.Quantity > 5){
+                                <button>
+                                    <img src="/images/Eo_circle_green_checkmark.svg" height="20" width="50" />
+                                </button>
+                            }
+                            else if(ware.Quantity < 5 && ware.Quantity != 0)
+                            {
+                                <button>
+                                    <img src="/images/Eo_circle_orange_checkmark.svg" height="20" width="50" />
+                                </button>
+                            }
+                            else if(ware.Quantity == 0)
+                            {
+                                <button>
+                                    <img src="/images/red-cross.svg" height="20" width="50" />
+                                </button>
+                            }
+
                         </NavLink>
                     </div>
                 </div>
