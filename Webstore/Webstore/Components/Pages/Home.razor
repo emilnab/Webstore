@@ -1,7 +1,30 @@
 ﻿@page "/"
+@using Webstore.Models
+@inject HttpClient Http;
 
 <PageTitle>Home</PageTitle>
 
-<h1>Hello, world!</h1>
+@if (wares == null)
+{
+    <p>loading..</p>
+}
 
-Welcome to your new app.
+<ItemCard wares="wares"></ItemCard>
+
+
+@code {
+    private List<Ware> wares = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            wares = await Http.GetFromJsonAsync<List<Ware>>("api/Wares");
+        }
+        catch (Exception ex)
+        {
+            await Console.Out.WriteLineAsync("NÆH INTA TINGA" + ex);
+        }
+    }
+
+}
