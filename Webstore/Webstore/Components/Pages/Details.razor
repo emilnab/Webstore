@@ -1,10 +1,36 @@
 ﻿@page "/details/{Id:int}"
+@inject HttpClient Http;
+@using Webstore.Models
 
 <h3>Details</h3>
 <p>Id: @Id</p>
+<p>@ware.Name | @ware.Description</p>
+
+@if(ware.Photo != null) // Without this if statement it tries to convert the image before it is fetched from the api
+{
+    <img src="@($"data:image/png;base64,{Convert.ToBase64String(ware.Photo)}")" alt="@ware.Name" />
+}
+
 
 @code {
     [Parameter]
     public int Id { get; set; }
 
+    //TODO Fix maybe?: Pretty scuffed that you have to give ware a name when it is set as required
+    Ware ware = new Ware(){ Name = "" };
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            ware = await Http.GetFromJsonAsync<Ware>($"api/wares/{Id}");
+
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine("Failed to fecth ware from api" + ex);
+        }
+    }
+
+    
 }
