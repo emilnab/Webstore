@@ -15,5 +15,6 @@ namespace Webstore.Models
 
         public byte[]? Photo { get; set; }
 
+        public int Quantity { get; set; }
     }
 }
