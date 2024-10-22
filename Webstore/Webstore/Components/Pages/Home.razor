@@ -1,6 +1,8 @@
 ﻿@page "/"
 @using Webstore.Models
 @inject HttpClient Http;
+@inject NavigationManager Navigation
+
 
 <PageTitle>Home</PageTitle>
 
@@ -8,6 +10,10 @@
 {
     <p>loading..</p>
 }
+
+<NavLink href="@("createware")">
+    <button>Create ware</button>
+</NavLink>
 
 <ItemCard ItemCardWares="wares"></ItemCard>
 
@@ -26,5 +32,4 @@
             await Console.Out.WriteLineAsync("Can't fetch wares from API" + ex);
         }
     }
-
 }

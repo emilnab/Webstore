@@ -1,0 +1,44 @@
+﻿@page "/createware"
+@using Webstore.Models
+
+<h3>CreateWare</h3>
+
+<label>
+    Name
+    <input @bind="NewWare.Name"/>
+</label>
+<label>
+    Description
+    <input @bind="NewWare.Description" />
+</label>
+<label>
+    Price
+    <input @bind="NewWare.Price" />
+</label>
+<label>
+    Quantity
+    <input @bind=NewWare.Quantity />
+</label>
+<div>
+    <label>photo</label>
+    <InputFile OnChange="HandleImageUpload"/>
+</div>
+@if(NewWare.Photo != null)
+{
+    <img src="@($"data:image/png;base64,{Convert.ToBase64String(NewWare.Photo)}")"/>
+}
+
+@code {
+    Ware NewWare = new Ware()
+    {
+        Name = ""
+    };
+    //private string? imagePreviewSrc;
+
+    private async void HandleImageUpload(InputFileChangeEventArgs e)
+    {
+        MemoryStream ms = new MemoryStream();
+        await e.File.OpenReadStream().CopyToAsync(ms);
+        NewWare.Photo = ms.ToArray();
+    }
+}
